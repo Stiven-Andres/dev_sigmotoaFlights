@@ -14,7 +14,7 @@ CLEVER_DB=(
     f"{os.getenv('CLEVER_PORT')}/"
     f"{os.getenv('CLEVER_DATABASE')}"
 )
-DATABASE_URL= "sqlite+aiosqlite:///petsdb.db"
+DATABASE_URL= "postgresql://db_parcial_3_mxra_user:IdRpSqWtoGmofyjuzGTiWJ4HBvSZIiwl@dpg-d15h8vuuk2gs73c7diag-a.oregon-postgres.render.com/db_parcial_3_mxra"
 
 engine : AsyncEngine = create_async_engine(CLEVER_DB, echo=True)
 async_session =sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
