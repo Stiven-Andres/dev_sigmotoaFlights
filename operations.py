@@ -46,3 +46,9 @@ async def create_mascota_sql(session: AsyncSession, mascota: MascotaSQL):
     return mascota
 
 
+async def obtener_todas_las_mascotas(session: AsyncSession) -> List[MascotaSQL]:
+    """Obtiene todos los equipos activos."""
+    result = await session.execute(
+        select(MascotaSQL).where(MascotaSQL.esta_activo == True)  # <-- Filtra por activo
+    )
+    return list(result.scalars().all())

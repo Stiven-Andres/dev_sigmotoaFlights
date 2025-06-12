@@ -52,7 +52,6 @@ class VueloSQL(SQLModel, table=True):
     reservado: bool = Field(default=True)
     disponibilidad: bool = Field(default=True)
     precio: float = Field(default=0.0)
-    usuarios: List[UsuariosSQL] = Field(default=[])
     mascotas: int = Field(default=0)
 
 
