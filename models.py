@@ -9,6 +9,21 @@ from enum import Enum
 from pydantic import ConfigDict
 
 
+class Mascota(BaseModel):
+    gato="Gato"
+    perro="Perro"
+    loro="Loro"
+    hamster="Hamster"
+
+
+
+class MascotaCreate(BaseModel):
+    id: Optional[int] = None
+    nombre: str
+    edad: int
+    email: str
+    mascota: Mascota
+
 
 
 
