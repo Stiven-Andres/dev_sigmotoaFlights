@@ -1,3 +1,5 @@
+from models import UsuariosSQL
+from fastapi import FastAPI, Depends, HTTPException, Request, UploadFile, File, Form
 from sqlalchemy.future import select
 import unicodedata
 from sqlalchemy import update, delete
@@ -45,3 +47,30 @@ async def create_mascota_sql(session: AsyncSession, mascota: MascotaSQL):
     return mascota
 
 
+load_dotenv()
+API_TOKEN = os.getenv("SPORTMONKS_API_TOKEN")
+
+
+def normalizar_nombre(nombre: str) -> str:
+    nombre = nombre.lower()
+    nombre = unicodedata.normalize('NFKD', nombre)
+    nombre = ''.join(c for c in nombre if not unicodedata.combining(c))  # Elimina tildes
+    return nombre
+
+
+async def create_Usuarios_sql(session: AsyncSession, Usuario: UsuariosSQL):
+    Usuario.nombre = normalizar_nombre(Usuario.nombre)
+
+    existing_usuario = await session.execute(
+        select(UsuariosSQL).where(UsuariosSQL.nombre == UsuariosSQL.nombre, UsuariosSQL.esta_activo == True)
+
+    )
+    if existing_usuario.first():
+        raise HTTPException(status_code=400, detail=f"El usuario '{Usuario.nombre}' ya existe y está activo.")
+
+    session.add(Usuario)
+    await session.commit()
+    await session.refresh(Usuario)
+    print(f"DEBUG (operations): usuario '{Usuario.nombre}' creado con ID {Usuario.id}.")
+    await (session, Usuario.pais)
+    return Usuario

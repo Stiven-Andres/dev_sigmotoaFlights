@@ -4,8 +4,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from shutil import copyfileobj
 from sqlalchemy.orm import selectinload
-from operations import create_equipo_sql
-from models import EquipoSQL, Paises, Grupos
+from operations import create_uusario_sql
+from models import UsuariosSQL, MascotaSQL, VueloSQL
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from models import *
@@ -44,10 +44,10 @@ async def mostrar_inicio(request: Request):
     return templates.TemplateResponse("inicio.html", {"request": request})
 
 
-@app.get("/formulario-equipo", response_class=HTMLResponse)
-async def formulario_equipo(request: Request):
+@app.get("/formulario-usuario", response_class=HTMLResponse)
+async def formulario_usuario(request: Request):
     # Pasa el Enum Paises al template para el dropdown
-    return templates.TemplateResponse("formulario_equipo.html", {"request": request, "Paises": Paises})
+    return templates.TemplateResponse("formulario_usuario.html", {"request": request, "Mascotas": ma})
 
 # NEW ENDPOINT: Display form to restore inactive matches
 @app.get("/partidos/restaurar", response_class=HTMLResponse)
