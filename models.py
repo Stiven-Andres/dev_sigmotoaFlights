@@ -15,6 +15,21 @@ class Mascota(str, Enum):
     loro="Loro"
     hamster="Hamster"
 
+class Mascota(BaseModel):
+    gato="Gato"
+    perro="Perro"
+    loro="Loro"
+    hamster="Hamster"
+
+
+
+class MascotaCreate(BaseModel):
+    id: Optional[int] = None
+    nombre: str
+    edad: int
+    email: str
+    mascota: Mascota
+
 
 
 class MascotaCreate(BaseModel):
@@ -54,5 +69,3 @@ class VueloSQL(SQLModel, table=True):
     precio: float = Field(default=0.0)
     usuarios: List[UsuariosSQL] = Field(default=[])
     mascotas: int = Field(default=0)
-
-
