@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Registrar Nueva Mascota</h1>
+    <form method="post" action="/equipos/" enctype="multipart/form-data" class="needs-validation" novalidate>
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre de la mascota</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" required>
+            <div class="invalid-feedback">
+                Por favor, ingresa el nombre de la mascota.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="raza" class="form-label">Raza de la mascota</label>
+            <input type="text" class="form-control" id="raza" name="raza" required>
+            <div class="invalid-feedback">
+                Por favor, ingresa la raza de la mascota.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="sexo" class="form-label">Sexo de la mascota</label>
+            <input type="text" class="form-control" id="sexo" name="sexo" required>
+            <div class="invalid-feedback">
+                Por favor, ingresa el sexo de la mascota.
+            </div>
+        </div>
+
+
+
+        <div class="mb-3">
+            <label for="pais" class="form-label">País</label>
+            <select class="form-select" id="tipo" name="tipo" required>
+                <option value="">Selecciona un tipo de mascota...</option>
+                {% for t in ["Gato", "Perro", "Loro", "Hamster"] %}
+                    <option value="{{ t }}">{{ t }}</option>
+                {% endfor %}
+            </select>
+            <div class="invalid-feedback">
+                Por favor, selecciona un país.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="logo" class="form-label">Logo del equipo</label>
+            <input type="file" class="form-control" id="logo" name="logo" accept=".png,.jpg,.jpeg" required>
+            <div class="invalid-feedback">
+                Por favor, selecciona un logo.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="esta_activo" class="form-label">Estado del Equipo</label>
+            <select class="form-select" id="esta_activo" name="esta_activo" required>
+                <option value="true">Activo</option>
+                <option value="false">Inactivo</option>
+            </select>
+            <div class="invalid-feedback">
+                Por favor, selecciona un estado para incluir.
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Registrar Equipo</button>
+    </form>
+</div>
+{% endblock %}

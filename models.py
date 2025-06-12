@@ -9,7 +9,20 @@ from enum import Enum
 from pydantic import ConfigDict
 
 
+class Mascota(str, Enum):
+    gato="Gato"
+    perro="Perro"
+    loro="Loro"
+    hamster="Hamster"
 
+
+
+class MascotaCreate(BaseModel):
+    id: Optional[int] = None
+    nombre: str
+    edad: int
+    email: str
+    mascota: Mascota
 
 
 
@@ -21,14 +34,14 @@ class UsuariosSQL(SQLModel, table=True):
     email: str = Field(min_length=15, max_length=50)
     Mascotas: int = Field(default=0)
 
-
 class MascotaSQL(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     nombre: str = Field(min_length=3, max_length=50)
     raza: str = Field(min_length=3, max_length=50)
     sexo: str = Field(min_length=1, max_length=1)
-    usuarios: List[UsuariosSQL] = Field(default=[])
-
+    tipo: Mascota = Field(default=Mascota.perro)
+    logo_url: Optional[str] = Field(default="img/shield.png")
+    esta_activo: bool = Field(default=True)
 
 
 class VueloSQL(SQLModel, table=True):
